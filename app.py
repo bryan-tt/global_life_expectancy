@@ -1,13 +1,13 @@
 # Import the dependencies.
 from flask import Flask, jsonify
 import json
-
+from flask_cors import CORS
 #################################################
 # Flask Routes
 #################################################
 
 app = Flask(__name__)
-
+CORS(app)
 @app.route('/', methods=['GET'])
 def get_lifespan():
     # Read the JSON file
