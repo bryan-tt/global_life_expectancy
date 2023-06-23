@@ -11,7 +11,7 @@ CORS(app)
 @app.route('/', methods=['GET'])
 def get_lifespan():
     # Read the JSON file
-    with open('Resources/lifespan_world.json', 'r') as file:
+    with open('../Resources/lifespan_world.json', 'r') as file:
         data = json.load(file)
     
     return jsonify(data)
