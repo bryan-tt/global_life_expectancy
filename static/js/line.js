@@ -38,10 +38,21 @@ let lifeData;
 
         // Create reset button
         let resetButton = document.createElement("button");
-        resetButton.textContent = "Reset";
-        resetButton.className = "btn btn-primary";
-        resetButton.style.float = "right";
+        resetButton.textContent = " Reset";
+        resetButton.className = "btn btn-primary bi bi-arrow-clockwise";
+        resetButton.style.float = "left";
+        resetButton.style.width = "100%";
+        resetButton.style.marginTop = "10px";
         plotDiv.appendChild(resetButton);
+
+        // Create income comparison button
+        let incomeButton = document.createElement("button");
+        incomeButton.textContent = " Income Comparison";
+        incomeButton.className = "btn btn-primary bi bi-currency-exchange";
+        incomeButton.style.float = "left";
+        incomeButton.style.width = "100%";
+        incomeButton.style.marginTop = "10px";
+        plotDiv.appendChild(incomeButton);
 
         // Set dimensions
         plotDiv.style.width = "100%";
@@ -105,7 +116,50 @@ let lifeData;
         }
 
         // Initialize line chart with first country in dropdown
-        updateLineChart(countryNames[0]);
+        updateLineChart(countryNames[0]); 
+
+        // Add event listener for income comparisons
+        incomeButton.addEventListener("click", () => {
+
+            // Create trace length
+            traces.length = 0;
+
+            // Create empty layout
+            let blankLayout = {
+                title: "Lifespan Country Comparison",
+                showlegend: true,
+                legend: {
+                    xanchor: "center",
+                    yanchor: "top",
+                    y: -0.2,
+                    x: 0.5,
+                },
+                xaxis: {
+                    title: "Year",
+                },
+                yaxis: {
+                    title: "Life Expectancy (Age)",
+                },
+                autosize: true,
+            };
+
+            // Plot blank chart with the empty traces
+            Plotly.newPlot("line-chart", [], blankLayout);
+
+            // Reset dropdown menu to first country
+            dropdown.selectedIndex = 0;
+
+            // Add incomes
+            updateLineChart(countryNames[218]); // World income
+            updateLineChart(countryNames[117]); // Low income
+            updateLineChart(countryNames[116]); // Low & middle income
+            updateLineChart(countryNames[118]); // Lower middle income
+            updateLineChart(countryNames[133]); // Middle income
+            updateLineChart(countryNames[212]); // Upper middle income
+            updateLineChart(countryNames[85]); // High income
+
+
+        })
 
         // Add event listener for line chart update when the dropdown selection change
         dropdown.addEventListener("change", () => {
