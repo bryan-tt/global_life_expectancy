@@ -116,7 +116,9 @@ let lifeData;
         }
 
         // Initialize line chart with first country in dropdown
-        updateLineChart(countryNames[0]); 
+        updateLineChart(countryNames[218]); // World
+        updateLineChart(countryNames[147]); // Nigeria
+        updateLineChart(countryNames[99]); // Japan
 
         // Add event listener for income comparisons
         incomeButton.addEventListener("click", () => {
