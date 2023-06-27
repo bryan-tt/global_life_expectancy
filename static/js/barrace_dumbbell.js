@@ -96,7 +96,7 @@ let dumbbellChart;
         series: [
             {
                 name: "Life expectancy change",
-                data: getTop20(getData(input.value)[1]),
+                data: getTop20(getData(input.value)[1])
             },
         ],
     });
@@ -280,7 +280,11 @@ function getTop20(arr) {
     var names = arr.map((record) => record[0]);
     var filteredData = dumbbellData.filter((obj) => names.includes(obj.name));
     // console.log(names.length, filteredData.length, _.uniqWith(filteredData, _.isEqual).length);
-    return filteredData;
+    return (filteredData.sort(function(a, b) {
+        var indexA = names.indexOf(a.name);
+        var indexB = names.indexOf(b.name);
+        return indexA - indexB;
+      }));
 }
 
 function getData(year) {
@@ -300,7 +304,6 @@ function getData(year) {
             }
             return valueB - valueA; // Sort numbers in descending order
         });
-    console.log(output.slice(0, nbr));
     return [output[0], output.slice(0, nbr)];
 }
 
@@ -355,7 +358,7 @@ function update(increment) {
     });
 
     dumbbellChart.series[0].update({
-        data: getTop20(getData(input.value)[1]),
+        data: getTop20(getData(input.value)[1])
     });
 }
 
