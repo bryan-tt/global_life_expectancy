@@ -54,6 +54,15 @@ let lifeData;
         incomeButton.style.marginTop = "10px";
         plotDiv.appendChild(incomeButton);
 
+        // Create a region comparison button
+        let regionButton = document.createElement("button");
+        regionButton.textContent = " Region Comparison";
+        regionButton.className = "btn btn-primary bi bi-globe";
+        regionButton.style.float = "left";
+        regionButton.style.width = "100%";
+        regionButton.style.marginTop = "10px";
+        plotDiv.appendChild(regionButton);
+
         // Set dimensions
         plotDiv.style.width = "100%";
         plotDiv.style.height = "600px";
@@ -116,9 +125,9 @@ let lifeData;
         }
 
         // Initialize line chart with first country in dropdown
-        updateLineChart(countryNames[218]); // World
-        updateLineChart(countryNames[147]); // Nigeria
-        updateLineChart(countryNames[99]); // Japan
+        updateLineChart('World'); // World
+        updateLineChart('Nigeria'); // Nigeria
+        updateLineChart('Japan'); // Japan
 
         // Add event listener for income comparisons
         incomeButton.addEventListener("click", () => {
@@ -159,9 +168,50 @@ let lifeData;
             updateLineChart(countryNames[133]); // Middle income
             updateLineChart(countryNames[212]); // Upper middle income
             updateLineChart(countryNames[85]); // High income
-
-
         })
+
+        // Add event listener for region comparisons
+        regionButton.addEventListener("click", () => {
+
+            // Create trace length
+            traces.length = 0;
+
+            // Create empty layout
+            let blankLayout = {
+                title: "Lifespan Country Comparison",
+                showlegend: true,
+                legend: {
+                    xanchor: "center",
+                    yanchor: "top",
+                    y: -0.2,
+                    x: 0.5,
+                },
+                xaxis: {
+                    title: "Year",
+                },
+                yaxis: {
+                    title: "Life Expectancy (Age)",
+                },
+                autosize: true,
+            };
+
+            // Plot blank chart with the empty traces
+            Plotly.newPlot("line-chart", [], blankLayout);
+
+            // Reset dropdown menu to first country
+            dropdown.selectedIndex = 0;
+
+            // Add regions
+            updateLineChart('Europe and Central Asia');
+            updateLineChart('North America');
+            updateLineChart('South Asia');
+            updateLineChart('South Africa');
+            updateLineChart('European Union');
+            updateLineChart('Sub-Saharan Africa');
+            updateLineChart('Latin America and Caribbean');
+            updateLineChart('East Asia and Pacific');
+        })
+        
 
         // Add event listener for line chart update when the dropdown selection change
         dropdown.addEventListener("change", () => {
